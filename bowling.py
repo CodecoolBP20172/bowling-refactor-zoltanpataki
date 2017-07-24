@@ -4,23 +4,22 @@ def score(game):
     first_roll = True
     for i in range(len(game)):
         if game[i] == '/' and frame < 10:
-            result += 10 - last + get_value(game[i+1])
-        else:
-            result += get_value(game[i])
-        if game[i].upper() == "X" and frame < 10:
-            result += get_value(game[i+1])
+            result += 10 - last + get_value(game[i+1])           
+        elif game[i].upper() == "X" and frame < 10:
+            result += get_value(game[i]) + get_value(game[i+1])
             if game[i+2] == '/':
                 result += 10 - get_value(game[i+1])
             else:
                 result += get_value(game[i+2])
+        else:
+            result += get_value(game[i]) 
         last = get_value(game[i])
-        if not first_roll:
-            frame += 1
         if first_roll is True:
             first_roll = False
         else:
             first_roll = True
-        if game[i] == 'X' or game[i] == 'x':
+            frame += 1
+        if game[i].upper() == 'X':
             first_roll = True
             frame += 1
     return result
@@ -38,4 +37,4 @@ def get_value(char):
     else:
         raise ValueError()
 
-print(score(["x", "6", "/", "8", "1"]))
+print(score("X34----------------"))
